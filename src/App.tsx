@@ -12,6 +12,7 @@ import { ImportKeywordsModal } from './components/ImportKeywordsModal';
 import { CSVImportModal } from './components/CSVImportModal';
 import { DataForSeoSetup } from './components/DataForSeoSetup';
 import { DataForSeoImport } from './components/DataForSeoImport';
+import { RankingsPage } from './components/RankingsPage';
 import { mockKeywords, mockCompetitors, mockRankDistribution } from './data/mockData';
 import { Keyword, DashboardStats } from './types';
 import { searchConsoleService } from './services/searchConsole';
@@ -388,6 +389,9 @@ function App() {
             )}
           </div>
         );
+
+      case 'rankings':
+        return <RankingsPage keywords={keywords} />;
 
       default:
         return (
