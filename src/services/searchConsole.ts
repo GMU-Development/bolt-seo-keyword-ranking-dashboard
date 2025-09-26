@@ -1,5 +1,4 @@
 import { SearchConsoleData, SearchConsoleCredentials } from '../types';
-import { authManager } from './authManager';
 
 class SearchConsoleService {
   private credentials: SearchConsoleCredentials | null = null;
@@ -8,7 +7,6 @@ class SearchConsoleService {
   setCredentials(credentials: SearchConsoleCredentials) {
     this.credentials = credentials;
     localStorage.setItem('gsc_credentials', JSON.stringify(credentials));
-    authManager.updateSearchConsoleStatus(true);
   }
 
   getStoredCredentials(): SearchConsoleCredentials | null {
@@ -165,7 +163,6 @@ class SearchConsoleService {
     localStorage.removeItem('gsc_access_token');
     localStorage.removeItem('gsc_refresh_token');
     localStorage.removeItem('gsc_credentials');
-    authManager.updateSearchConsoleStatus(false);
   }
 }
 

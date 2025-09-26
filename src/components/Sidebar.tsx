@@ -9,14 +9,12 @@ import {
   FileText,
   Search,
   Award,
-  Activity,
-  Shield
+  Activity
 } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
-  onOpenAuth?: () => void;
 }
 
 const menuItems = [
@@ -31,7 +29,7 @@ const menuItems = [
   { id: 'settings', label: 'Instellingen', icon: Settings },
 ];
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, onOpenAuth }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange }) => {
   return (
     <div className="w-64 bg-white border-r border-gray-200 h-full flex flex-col">
       {/* Logo */}
@@ -74,16 +72,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, onOpen
 
       {/* Project Selector */}
       <div className="p-4 border-t border-gray-100">
-        {onOpenAuth && (
-          <button
-            onClick={onOpenAuth}
-            className="w-full mb-4 flex items-center gap-2 px-3 py-2 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
-          >
-            <Shield className="h-4 w-4" />
-            Data Bronnen Koppelen
-          </button>
-        )}
-        
         <div className="bg-gray-50 rounded-lg p-3">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
