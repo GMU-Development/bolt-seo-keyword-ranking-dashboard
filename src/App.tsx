@@ -12,10 +12,13 @@ import { ImportKeywordsModal } from './components/ImportKeywordsModal';
 import { CSVImportModal } from './components/CSVImportModal';
 import { DataForSeoSetup } from './components/DataForSeoSetup';
 import { DataForSeoImport } from './components/DataForSeoImport';
+import { AuthenticationPage } from './components/AuthenticationPage';
+import { WelcomeScreen } from './components/WelcomeScreen';
 import { mockKeywords, mockCompetitors, mockRankDistribution } from './data/mockData';
 import { Keyword, DashboardStats } from './types';
 import { searchConsoleService } from './services/searchConsole';
 import { dataForSeoService } from './services/dataForSeo';
+import { authManager } from './services/authManager';
 import { 
   Target, 
   TrendingUp, 
@@ -37,14 +40,20 @@ function App() {
   const [isCSVImportOpen, setIsCSVImportOpen] = useState(false);
   const [isDataForSeoSetupOpen, setIsDataForSeoSetupOpen] = useState(false);
   const [isDataForSeoImportOpen, setIsDataForSeoImportOpen] = useState(false);
+  const [isAuthPageOpen, setIsAuthPageOpen] = useState(false);
   const [editingKeyword, setEditingKeyword] = useState<Keyword | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isGSCConnected, setIsGSCConnected] = useState(false);
   const [isDataForSeoConnected, setIsDataForSeoConnected] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   React.useEffect(() => {
     setIsGSCConnected(searchConsoleService.isAuthenticated());
     setIsDataForSeoConnected(dataForSeoService.isAuthenticated());
+    
+    // Show welcome screen if no services are connected
+    const hasConnections = authManager.isAnyServiceConnected();
+    setShowWelcome(!hasConnections);
   }, []);
 
   const stats: DashboardStats = useMemo(() => {
@@ -148,11 +157,13 @@ function App() {
   const handleGSCConnected = () => {
     setIsGSCConnected(true);
     setIsSetupOpen(false);
+    setShowWelcome(false);
   };
 
   const handleDataForSeoConnected = () => {
     setIsDataForSeoConnected(true);
     setIsDataForSeoSetupOpen(false);
+    setShowWelcome(false);
   };
 
   const handleEditKeyword = (keyword: Keyword) => {
@@ -177,6 +188,27 @@ function App() {
     a.download = 'seo-keyword-rankings.csv';
     a.click();
   };
+
+  // Show welcome screen if no connections
+  if (showWelcome) {
+    return (
+      <>
+        <WelcomeScreen 
+          onOpenAuth={() => setIsAuthPageOpen(true)}
+          hasConnections={authManager.isAnyServiceConnected()}
+        />
+        <AuthenticationPage
+          isOpen={isAuthPageOpen}
+          onClose={() => setIsAuthPageOpen(false)}
+          onAuthComplete={() => {
+            setIsGSCConnected(searchConsoleService.isAuthenticated());
+            setIsDataForSeoConnected(dataForSeoService.isAuthenticated());
+            setShowWelcome(false);
+          }}
+        />
+      </>
+    );
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -280,24 +312,24 @@ function App() {
 
               <div className="flex items-center gap-3">
                 <button
-                  onClick={() => setIsSetupOpen(true)}
+                  onClick={() => setIsAuthPageOpen(true)}
                   className={`p-2 rounded-lg transition-colors ${
                     isGSCConnected 
                       ? 'text-green-600 hover:text-green-700 hover:bg-green-50' 
                       : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                   }`}
-                  title={isGSCConnected ? 'Search Console verbonden' : 'Koppel Search Console'}
+                  title={isGSCConnected ? 'Search Console verbonden' : 'Koppel Data Bronnen'}
                 >
                   <Globe className="h-5 w-5" />
                 </button>
                 <button
-                  onClick={() => setIsDataForSeoSetupOpen(true)}
+                  onClick={() => setIsAuthPageOpen(true)}
                   className={`p-2 rounded-lg transition-colors ${
                     isDataForSeoConnected 
                       ? 'text-green-600 hover:text-green-700 hover:bg-green-50' 
                       : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                   }`}
-                  title={isDataForSeoConnected ? 'DataForSEO verbonden' : 'Koppel DataForSEO'}
+                  title={isDataForSeoConnected ? 'DataForSEO verbonden' : 'Koppel Data Bronnen'}
                 >
                   <Database className="h-5 w-5" />
                 </button>
@@ -409,7 +441,11 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+      <Sidebar 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab}
+        onOpenAuth={() => setIsAuthPageOpen(true)}
+      />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
@@ -449,6 +485,16 @@ function App() {
       </div>
 
       {/* Modals */}
+      <AuthenticationPage
+        isOpen={isAuthPageOpen}
+        onClose={() => setIsAuthPageOpen(false)}
+        onAuthComplete={() => {
+          setIsGSCConnected(searchConsoleService.isAuthenticated());
+          setIsDataForSeoConnected(dataForSeoService.isAuthenticated());
+          setShowWelcome(!authManager.isAnyServiceConnected());
+        }}
+      />
+
       <AddKeywordModal
         isOpen={isModalOpen}
         onClose={() => {

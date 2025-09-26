@@ -68,6 +68,7 @@ class DataForSeoService {
   setCredentials(credentials: DataForSeoCredentials) {
     this.credentials = credentials;
     localStorage.setItem('dataforseo_credentials', JSON.stringify(credentials));
+    authManager.updateDataForSeoStatus(true);
   }
 
   getStoredCredentials(): DataForSeoCredentials | null {
@@ -236,6 +237,7 @@ class DataForSeoService {
   disconnect(): void {
     this.credentials = null;
     localStorage.removeItem('dataforseo_credentials');
+    authManager.updateDataForSeoStatus(false);
   }
 
   // Helper method to get location codes for different countries
@@ -261,4 +263,5 @@ class DataForSeoService {
   }
 }
 
+import { authManager } from './authManager';
 export const dataForSeoService = new DataForSeoService();
