@@ -305,10 +305,20 @@ export const SettingsPage: React.FC = () => {
               <div className="flex items-start gap-3">
                 <Info className="h-5 w-5 text-purple-600 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h4 className="font-medium text-purple-800 mb-2">Account Vereist</h4>
+                  <h4 className="font-medium text-purple-800 mb-2">Demo Modus Actief</h4>
                   <p className="text-sm text-purple-700 mb-3">
-                    U heeft een DataForSEO account nodig. Ze bieden een gratis trial met $1 credit.
+                    Vanwege browser beperkingen (CORS) werkt de DataForSEO API in demo modus. 
+                    Voor productie gebruik is een server-side implementatie vereist.
                   </p>
+                  <div className="bg-white rounded p-3 border border-purple-200 mb-3">
+                    <h5 className="font-medium text-purple-800 mb-2">Demo Functionaliteiten:</h5>
+                    <ul className="text-sm text-purple-700 space-y-1 list-disc list-inside">
+                      <li>Gesimuleerde keyword data</li>
+                      <li>Random zoekvolumes en CPC</li>
+                      <li>Mock concurrentie niveaus</li>
+                      <li>Keyword moeilijkheid scores</li>
+                    </ul>
+                  </div>
                   <a
                     href="https://app.dataforseo.com/register"
                     target="_blank"
@@ -316,7 +326,7 @@ export const SettingsPage: React.FC = () => {
                     className="inline-flex items-center gap-2 text-sm text-purple-800 hover:text-purple-900 font-medium"
                   >
                     <ExternalLink className="h-4 w-4" />
-                    Maak DataForSEO Account
+                    Meer Info over DataForSEO API
                   </a>
                 </div>
               </div>
@@ -331,7 +341,7 @@ export const SettingsPage: React.FC = () => {
                   type="email"
                   value={dataForSeoCredentials.login}
                   onChange={(e) => setDataForSeoCredentials({ ...dataForSeoCredentials, login: e.target.value })}
-                  placeholder="jouw-email@example.com"
+                  placeholder="demo@example.com (demo modus)"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
               </div>
@@ -343,7 +353,7 @@ export const SettingsPage: React.FC = () => {
                   type="password"
                   value={dataForSeoCredentials.password}
                   onChange={(e) => setDataForSeoCredentials({ ...dataForSeoCredentials, password: e.target.value })}
-                  placeholder="Jouw API wachtwoord"
+                  placeholder="demo123 (demo modus)"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
               </div>
@@ -364,12 +374,12 @@ export const SettingsPage: React.FC = () => {
               {testingDataForSeo ? (
                 <>
                   <RefreshCw className="h-4 w-4 animate-spin" />
-                  Verbinden...
+                  Demo Verbinding Testen...
                 </>
               ) : (
                 <>
                   <Database className="h-4 w-4" />
-                  Verbind DataForSEO
+                  Verbind DataForSEO (Demo)
                 </>
               )}
             </button>
@@ -380,8 +390,9 @@ export const SettingsPage: React.FC = () => {
               <div className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-green-600" />
                 <div>
-                  <p className="font-medium text-green-800">DataForSEO Verbonden</p>
-                  <p className="text-sm text-green-700">Account: {dataForSeoCredentials.login}</p>
+                  <p className="font-medium text-green-800">DataForSEO Verbonden (Demo Modus)</p>
+                  <p className="text-sm text-green-700">Demo Account: {dataForSeoCredentials.login}</p>
+                  <p className="text-xs text-green-600 mt-1">Gebruikt gesimuleerde data voor demonstratie</p>
                 </div>
               </div>
             </div>
@@ -418,11 +429,24 @@ export const SettingsPage: React.FC = () => {
               DataForSEO
             </h4>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• Zoekvolume data</li>
-              <li>• Keyword moeilijkheid</li>
-              <li>• Concurrentie analyse</li>
-              <li>• SERP tracking</li>
+              <li>• Zoekvolume data (demo)</li>
+              <li>• Keyword moeilijkheid (demo)</li>
+              <li>• Concurrentie analyse (demo)</li>
+              <li>• SERP tracking (demo)</li>
             </ul>
+          </div>
+        </div>
+        
+        <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
+            <div>
+              <h4 className="font-medium text-amber-800 mb-1">Productie Implementatie</h4>
+              <p className="text-sm text-amber-700">
+                Voor echte API integratie is een server-side implementatie vereist vanwege CORS beperkingen. 
+                De demo modus toont hoe de interface werkt met gesimuleerde data.
+              </p>
+            </div>
           </div>
         </div>
       </div>
