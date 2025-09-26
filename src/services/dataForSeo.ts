@@ -93,24 +93,12 @@ class DataForSeoService {
 
   async testConnection(): Promise<boolean> {
     try {
-      // In browser environment, we can't make direct API calls due to CORS
-      // For demo purposes, we'll simulate a successful connection
-      console.log('Testing DataForSEO connection (demo mode)...');
-      
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // For demo, return true if credentials are provided
-      return !!(this.credentials?.login && this.credentials?.password);
-      
-      /* Real API call would be:
       const response = await fetch(`${this.baseUrl}/user`, {
         method: 'GET',
         headers: this.getAuthHeaders(),
       });
 
       return response.ok;
-      */
     } catch (error) {
       console.error('DataForSEO connection test failed:', error);
       return false;
@@ -126,29 +114,6 @@ class DataForSeoService {
       throw new Error('DataForSEO credentials niet ingesteld');
     }
 
-    // Demo mode - return mock data
-    console.log('Fetching keyword data (demo mode)...');
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    return keywords.map(keyword => ({
-      keyword,
-      location_code: locationCode,
-      language_code: languageCode,
-      search_volume: Math.floor(Math.random() * 10000) + 100,
-      cpc: Math.random() * 5 + 0.5,
-      competition: Math.random() > 0.5 ? 0.8 : Math.random() > 0.3 ? 0.5 : 0.2,
-      competition_level: Math.random() > 0.6 ? 'HIGH' : Math.random() > 0.3 ? 'MEDIUM' : 'LOW',
-      monthly_searches: [],
-      keyword_difficulty: Math.floor(Math.random() * 100),
-      serp_info: {
-        se_type: 'google',
-        check_url: '',
-        serp_item_types: [],
-        se_results_count: Math.floor(Math.random() * 1000000)
-      }
-    }));
-
-    /* Real API call would be:
     const requestData = keywords.map(keyword => ({
       keyword,
       location_code: locationCode,
@@ -167,7 +132,6 @@ class DataForSeoService {
 
     const data = await response.json();
     return data.tasks?.[0]?.result || [];
-    */
   }
 
   async getKeywordDifficulty(
@@ -179,16 +143,6 @@ class DataForSeoService {
       throw new Error('DataForSEO credentials niet ingesteld');
     }
 
-    // Demo mode - return mock difficulty data
-    console.log('Fetching keyword difficulty (demo mode)...');
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    return keywords.map(keyword => ({
-      keyword,
-      keyword_difficulty: Math.floor(Math.random() * 100)
-    }));
-
-    /* Real API call would be:
     const requestData = keywords.map(keyword => ({
       keyword,
       location_code: locationCode,
@@ -207,7 +161,6 @@ class DataForSeoService {
 
     const data = await response.json();
     return data.tasks?.[0]?.result || [];
-    */
   }
 
   async getSerpResults(

@@ -206,10 +206,10 @@ export const DataForSeoImport: React.FC<DataForSeoImportProps> = ({
                 <div className="flex items-start gap-3">
                   <Database className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h4 className="font-medium text-blue-800 mb-1">DataForSEO Data (Demo Modus)</h4>
+                    <h4 className="font-medium text-blue-800 mb-1">DataForSEO Data</h4>
                     <p className="text-sm text-blue-700">
-                      Demo modus toont gesimuleerde zoekvolume, CPC, concurrentie niveau en keyword moeilijkheid 
-                      data. Voor productie gebruik is server-side implementatie vereist.
+                      Krijg realtime zoekvolume, CPC, concurrentie niveau en keyword moeilijkheid 
+                      voor al je zoekwoorden. Data wordt direct opgehaald van Google Ads API.
                     </p>
                   </div>
                 </div>
@@ -223,12 +223,12 @@ export const DataForSeoImport: React.FC<DataForSeoImportProps> = ({
                 {loading ? (
                   <>
                     <Loader className="h-5 w-5 animate-spin" />
-                    Demo Data Genereren...
+                    Data Ophalen...
                   </>
                 ) : (
                   <>
                     <Download className="h-5 w-5" />
-                    Demo Keyword Data Ophalen
+                    Keyword Data Ophalen
                   </>
                 )}
               </button>

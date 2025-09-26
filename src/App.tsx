@@ -8,7 +8,6 @@ import { VisibilityChart } from './components/VisibilityChart';
 import { CompetitorAnalysis } from './components/CompetitorAnalysis';
 import { AddKeywordModal } from './components/AddKeywordModal';
 import { SearchConsoleSetup } from './components/SearchConsoleSetup';
-import { SettingsPage } from './components/SettingsPage';
 import { ImportKeywordsModal } from './components/ImportKeywordsModal';
 import { CSVImportModal } from './components/CSVImportModal';
 import { DataForSeoSetup } from './components/DataForSeoSetup';
@@ -389,9 +388,6 @@ function App() {
             )}
           </div>
         );
-
-      case 'settings':
-        return <SettingsPage />;
 
       default:
         return (
