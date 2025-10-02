@@ -24,7 +24,6 @@ interface RankingsPageProps {
 
 export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
   const [timeRange, setTimeRange] = useState('7d');
-  const [filterDevice, setFilterDevice] = useState('all');
   const [filterLocation, setFilterLocation] = useState('all');
 
   const rankingStats = useMemo(() => {
@@ -74,7 +73,6 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
   }, [keywords]);
 
   const filteredKeywords = keywords.filter(keyword => {
-    if (filterDevice !== 'all' && keyword.device !== filterDevice) return false;
     if (filterLocation !== 'all' && keyword.location !== filterLocation) return false;
     return true;
   });
@@ -183,26 +181,16 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
           <div className="flex items-center gap-2 flex-wrap">
             <Filter className="h-4 w-4 text-gray-400" />
             <select
-              value={filterDevice}
-              onChange={(e) => setFilterDevice(e.target.value)}
+              value={filterLocation}
+              onChange={(e) => setFilterLocation(e.target.value)}
               className="text-xs lg:text-sm border border-gray-300 rounded-lg px-2 lg:px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="all">Alle Apparaten</option>
-              <option value="Desktop">Desktop</option>
-              <option value="Mobiel">Mobiel</option>
+              <option value="all">Alle Locaties</option>
+              <option value="Nederland">Nederland</option>
+              <option value="België">België</option>
+              <option value="Duitsland">Duitsland</option>
             </select>
           </div>
-
-          <select
-            value={filterLocation}
-            onChange={(e) => setFilterLocation(e.target.value)}
-            className="text-xs lg:text-sm border border-gray-300 rounded-lg px-2 lg:px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="all">Alle Locaties</option>
-            <option value="Nederland">Nederland</option>
-            <option value="België">België</option>
-            <option value="Duitsland">Duitsland</option>
-          </select>
         </div>
       </div>
 

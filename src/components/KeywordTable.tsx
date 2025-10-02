@@ -11,7 +11,6 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
   const [sortBy, setSortBy] = useState<'rank' | 'volume' | 'difficulty' | 'visibility'>('rank');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [filterIntent, setFilterIntent] = useState<string>('all');
-  const [filterDevice, setFilterDevice] = useState<string>('all');
 
   const getRankChange = (current: number | null, previous: number | null) => {
     if (!current || !previous) return { type: 'neutral', value: 0 };
@@ -48,7 +47,6 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
 
   const filteredKeywords = keywords.filter(keyword => {
     if (filterIntent !== 'all' && keyword.intent !== filterIntent) return false;
-    if (filterDevice !== 'all' && keyword.device !== filterDevice) return false;
     return true;
   });
 
@@ -109,16 +107,6 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                 <option value="Navigatie">Navigatie</option>
               </select>
             </div>
-            
-            <select
-              value={filterDevice}
-              onChange={(e) => setFilterDevice(e.target.value)}
-              className="text-xs lg:text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="all">Alle Apparaten</option>
-              <option value="Desktop">Desktop</option>
-              <option value="Mobiel">Mobiel</option>
-            </select>
           </div>
         </div>
       </div>
