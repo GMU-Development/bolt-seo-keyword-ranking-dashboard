@@ -257,19 +257,15 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         </div>
 
         {/* Distribution Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
           {distributionData.map((segment, index) => {
-            const Icon = segment.icon;
             return (
-              <div key={index} className={`${segment.bgColor} rounded-xl p-6 border border-gray-200 h-full flex flex-col`}>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <Icon className={`h-5 w-5 ${segment.textColor}`} />
-                    <span className="text-sm font-semibold text-gray-900">{segment.label}</span>
-                  </div>
+              <div key={index} className="bg-white rounded-lg border border-gray-200 p-4 h-full flex flex-col">
+                <div className="mb-3">
+                  <span className="text-sm font-medium text-gray-600">{segment.label}</span>
                 </div>
-                <div className="flex items-baseline gap-2 mt-auto">
-                  <span className="text-3xl font-bold text-gray-900">{segment.count}</span>
+                <div className="flex items-baseline gap-1 mt-auto">
+                  <span className="text-xl font-bold text-gray-900">{segment.count}</span>
                   <span className="text-sm text-gray-500">({segment.percentage}%)</span>
                 </div>
               </div>
@@ -283,7 +279,6 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         {/* Top Performers */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center gap-2 mb-6">
-            <Trophy className="h-5 w-5 text-yellow-500" />
             <h3 className="text-lg font-semibold text-gray-900">Top Presteerders</h3>
           </div>
           
@@ -291,12 +286,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
             {topPerformers.map((keyword, index) => (
               <div key={keyword.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                    index === 0 ? 'bg-yellow-500 text-white' :
-                    index === 1 ? 'bg-gray-400 text-white' :
-                    index === 2 ? 'bg-orange-500 text-white' :
-                    'bg-blue-100 text-blue-800'
-                  }`}>
+                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold text-gray-700">
                     {index + 1}
                   </div>
                   <div>
@@ -305,10 +295,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className={`text-xl font-bold ${
-                    (keyword.currentRank || 0) <= 3 ? 'text-green-600' :
-                    (keyword.currentRank || 0) <= 10 ? 'text-blue-600' : 'text-amber-600'
-                  }`}>
+                  <div className="text-xl font-bold text-gray-900">
                     #{keyword.currentRank}
                   </div>
                 </div>
@@ -320,7 +307,6 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         {/* Biggest Movers */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center gap-2 mb-6">
-            <TrendingUp className="h-5 w-5 text-green-500" />
             <h3 className="text-lg font-semibold text-gray-900">Grootste Bewegers</h3>
           </div>
           
@@ -328,17 +314,10 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
             {biggestMovers.map((keyword) => (
               <div key={keyword.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-full ${
-                    keyword.change > 0 ? 'bg-green-100' :
-                    keyword.change < 0 ? 'bg-red-100' : 'bg-gray-100'
-                  }`}>
-                    {keyword.change > 0 ? (
-                      <ArrowUp className="h-4 w-4 text-green-600" />
-                    ) : keyword.change < 0 ? (
-                      <ArrowDown className="h-4 w-4 text-red-600" />
-                    ) : (
-                      <Minus className="h-4 w-4 text-gray-600" />
-                    )}
+                  <div className="p-2 rounded-full bg-gray-200">
+                    <span className="text-sm font-medium text-gray-700">
+                      {keyword.change > 0 ? '↑' : keyword.change < 0 ? '↓' : '→'}
+                    </span>
                   </div>
                   <div>
                     <div className="font-medium text-gray-900">{keyword.keyword}</div>
@@ -348,10 +327,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className={`text-lg font-bold ${
-                    keyword.change > 0 ? 'text-green-600' :
-                    keyword.change < 0 ? 'text-red-600' : 'text-gray-600'
-                  }`}>
+                  <div className="text-lg font-bold text-gray-900">
                     {keyword.change > 0 ? '+' : ''}{keyword.change}
                   </div>
                 </div>
