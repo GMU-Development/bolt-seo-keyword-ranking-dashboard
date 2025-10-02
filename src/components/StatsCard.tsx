@@ -64,10 +64,10 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   const colors = colorClasses[color];
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200 group">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-all duration-200 group h-full">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-2 mb-2">
             <p className="text-sm font-medium text-gray-600">{title}</p>
             {change && (
               <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -84,21 +84,21 @@ export const StatsCard: React.FC<StatsCardProps> = ({
             )}
           </div>
           
-          <div className="flex items-baseline gap-2 mb-1">
-            <h3 className="text-2xl font-bold text-gray-900">{value}</h3>
+          <div className="flex items-baseline gap-2 mb-2">
+            <h3 className="text-3xl font-bold text-gray-900">{value}</h3>
           </div>
           
           {subtitle && (
-            <p className="text-xs text-gray-500">{subtitle}</p>
+            <p className="text-sm text-gray-500">{subtitle}</p>
           )}
           
           {change?.period && (
-            <p className="text-xs text-gray-400 mt-1">vs {change.period}</p>
+            <p className="text-xs text-gray-400 mt-2">vs {change.period}</p>
           )}
         </div>
         
-        <div className={`${colors.bg} ${colors.border} border p-3 rounded-xl group-hover:scale-110 transition-transform duration-200`}>
-          <Icon className={`h-6 w-6 ${colors.icon}`} />
+        <div className={`${colors.bg} ${colors.border} border p-2.5 rounded-lg group-hover:scale-105 transition-transform duration-200 flex-shrink-0`}>
+          <Icon className={`h-5 w-5 ${colors.icon}`} />
         </div>
       </div>
     </div>

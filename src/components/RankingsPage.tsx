@@ -207,7 +207,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       </div>
 
       {/* Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
           title="Gemiddelde Ranking"
           value={rankingStats.averageRank > 0 ? rankingStats.averageRank : '-'}
@@ -218,7 +218,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         <StatsCard
           title="Verbeterend"
           value={rankingStats.improving}
-          change={{ value: rankingStats.improving, type: 'positive' }}
+          change={rankingStats.improving > 0 ? { value: rankingStats.improving, type: 'positive' } : undefined}
           icon={TrendingUp}
           color="green"
           subtitle="Rankings omhoog"
@@ -226,7 +226,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         <StatsCard
           title="Dalend"
           value={rankingStats.declining}
-          change={{ value: rankingStats.declining, type: 'negative' }}
+          change={rankingStats.declining > 0 ? { value: rankingStats.declining, type: 'negative' } : undefined}
           icon={TrendingDown}
           color="red"
           subtitle="Rankings omlaag"
@@ -257,19 +257,19 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         </div>
 
         {/* Distribution Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {distributionData.map((segment, index) => {
             const Icon = segment.icon;
             return (
-              <div key={index} className={`${segment.bgColor} rounded-lg p-4 border border-gray-100`}>
-                <div className="flex items-center justify-between mb-2">
+              <div key={index} className={`${segment.bgColor} rounded-lg p-4 border border-gray-100 h-full`}>
+                <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <Icon className={`h-5 w-5 ${segment.textColor}`} />
-                    <span className="text-sm font-medium text-gray-900">{segment.label}</span>
+                    <span className="text-sm font-semibold text-gray-900">{segment.label}</span>
                   </div>
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold text-gray-900">{segment.count}</span>
+                  <span className="text-3xl font-bold text-gray-900">{segment.count}</span>
                   <span className="text-sm text-gray-500">({segment.percentage}%)</span>
                 </div>
               </div>
@@ -279,7 +279,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       </div>
 
       {/* Top Performers and Biggest Movers */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Performers */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center gap-2 mb-6">
@@ -289,9 +289,9 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
           
           <div className="space-y-3">
             {topPerformers.map((keyword, index) => (
-              <div key={keyword.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={keyword.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                     index === 0 ? 'bg-yellow-500 text-white' :
                     index === 1 ? 'bg-gray-400 text-white' :
                     index === 2 ? 'bg-orange-500 text-white' :
@@ -301,11 +301,11 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
                   </div>
                   <div>
                     <div className="font-medium text-gray-900">{keyword.keyword}</div>
-                    <div className="text-xs text-gray-500">{keyword.searchVolume.toLocaleString()} zoekvolume</div>
+                    <div className="text-sm text-gray-500">{keyword.searchVolume.toLocaleString()} zoekvolume</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className={`text-lg font-bold ${
+                  <div className={`text-xl font-bold ${
                     (keyword.currentRank || 0) <= 3 ? 'text-green-600' :
                     (keyword.currentRank || 0) <= 10 ? 'text-blue-600' : 'text-amber-600'
                   }`}>
@@ -326,9 +326,9 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
           
           <div className="space-y-3">
             {biggestMovers.map((keyword) => (
-              <div key={keyword.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div key={keyword.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className={`p-1 rounded-full ${
+                  <div className={`p-2 rounded-full ${
                     keyword.change > 0 ? 'bg-green-100' :
                     keyword.change < 0 ? 'bg-red-100' : 'bg-gray-100'
                   }`}>
@@ -342,13 +342,13 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
                   </div>
                   <div>
                     <div className="font-medium text-gray-900">{keyword.keyword}</div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-sm text-gray-500">
                       {keyword.previousRank} → {keyword.currentRank}
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className={`text-sm font-bold ${
+                  <div className={`text-lg font-bold ${
                     keyword.change > 0 ? 'text-green-600' :
                     keyword.change < 0 ? 'text-red-600' : 'text-gray-600'
                   }`}>
