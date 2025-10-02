@@ -207,7 +207,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       </div>
 
       {/* Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatsCard
           title="Gemiddelde Ranking"
           value={rankingStats.averageRank > 0 ? rankingStats.averageRank : '-'}
@@ -257,18 +257,18 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         </div>
 
         {/* Distribution Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {distributionData.map((segment, index) => {
             const Icon = segment.icon;
             return (
-              <div key={index} className={`${segment.bgColor} rounded-lg p-4 border border-gray-100 h-full`}>
-                <div className="flex items-center justify-between mb-3">
+              <div key={index} className={`${segment.bgColor} rounded-xl p-6 border border-gray-200 h-full flex flex-col`}>
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <Icon className={`h-5 w-5 ${segment.textColor}`} />
                     <span className="text-sm font-semibold text-gray-900">{segment.label}</span>
                   </div>
                 </div>
-                <div className="flex items-baseline gap-2">
+                <div className="flex items-baseline gap-2 mt-auto">
                   <span className="text-3xl font-bold text-gray-900">{segment.count}</span>
                   <span className="text-sm text-gray-500">({segment.percentage}%)</span>
                 </div>
