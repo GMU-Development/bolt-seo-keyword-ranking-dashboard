@@ -9,8 +9,7 @@ import {
   FileText,
   Search,
   Award,
-  Activity,
-  CheckCircle
+  Activity
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -27,7 +26,6 @@ const menuItems = [
   { id: 'research', label: 'Onderzoek', icon: Search },
   { id: 'reports', label: 'Rapporten', icon: FileText },
   { id: 'audit', label: 'Site Audit', icon: Award },
-  { id: 'onpage', label: 'On-Page SEO Checker', icon: CheckCircle },
   { id: 'settings', label: 'Instellingen', icon: Settings },
 ];
 
