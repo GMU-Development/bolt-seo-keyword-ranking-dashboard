@@ -46,7 +46,7 @@ export const AddKeywordModal: React.FC<AddKeywordModalProps> = ({
       url: '',
       tags: [],
       difficulty: 50,
-      intent: 'Informational',
+      intent: 'Informatief',
       location: 'United States',
       device: 'Desktop'
     });
