@@ -140,12 +140,15 @@ function App() {
                      keywordData.currentRank <= 20 ? 5.0 : 2.0
         }] : []
       };
+      return {
+        ...newKeyword,
         url: '/',
         tags: [],
         difficulty: keywordData.currentRank ? Math.max(10, 100 - keywordData.currentRank * 2) : 50,
         intent: 'Informatief' as const,
         location: 'Nederland',
         device: 'Desktop' as const
+      };
     });
 
     setKeywords(prev => [...prev, ...newKeywords]);
