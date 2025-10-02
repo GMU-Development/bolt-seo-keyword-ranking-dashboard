@@ -324,6 +324,64 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
           </div>
         </div>
       </div>
+
+      {/* AI Overview Presence */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-6">AI Overview Aanwezigheid</h3>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <div className="text-2xl font-bold text-gray-900 mb-2">12</div>
+            <div className="text-sm text-gray-600">Zoekwoorden in AI Overview</div>
+            <div className="text-xs text-gray-500 mt-1">7.7% van totaal</div>
+          </div>
+          
+          <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <div className="text-2xl font-bold text-gray-900 mb-2">8</div>
+            <div className="text-sm text-gray-600">Nieuwe AI Overview Vermeldingen</div>
+            <div className="text-xs text-gray-500 mt-1">Deze maand</div>
+          </div>
+          
+          <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <div className="text-2xl font-bold text-gray-900 mb-2">4</div>
+            <div className="text-sm text-gray-600">Verloren AI Overview Posities</div>
+            <div className="text-xs text-gray-500 mt-1">Deze maand</div>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h4 className="font-medium text-gray-900">Zoekwoorden met AI Overview Aanwezigheid</h4>
+          
+          <div className="space-y-3">
+            {keywords
+              .filter(k => k.currentRank && k.currentRank <= 20)
+              .slice(0, 8)
+              .map((keyword) => (
+                <div key={keyword.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <div>
+                      <div className="text-sm font-medium text-gray-900">{keyword.keyword}</div>
+                      <div className="text-xs text-gray-500">Ranking #{keyword.currentRank}</div>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-gray-600 bg-blue-100 px-2 py-1 rounded">
+                      AI Overview
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+          
+          <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+            <div className="text-sm text-blue-800">
+              <strong>AI Overview Impact:</strong> Zoekwoorden die verschijnen in Google's AI Overview kunnen 
+              een andere klikfrequentie hebben. Monitor deze posities om de impact op uw organische verkeer te begrijpen.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
