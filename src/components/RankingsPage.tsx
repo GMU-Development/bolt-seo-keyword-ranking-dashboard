@@ -166,13 +166,13 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
     <div className="space-y-8">
       {/* Filters */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-gray-400" />
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
-              className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-xs lg:text-sm border border-gray-300 rounded-lg px-2 lg:px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="7d">Laatste 7 dagen</option>
               <option value="30d">Laatste 30 dagen</option>
@@ -180,12 +180,12 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
             </select>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Filter className="h-4 w-4 text-gray-400" />
             <select
               value={filterDevice}
               onChange={(e) => setFilterDevice(e.target.value)}
-              className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-xs lg:text-sm border border-gray-300 rounded-lg px-2 lg:px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">Alle Apparaten</option>
               <option value="Desktop">Desktop</option>
@@ -196,7 +196,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
           <select
             value={filterLocation}
             onChange={(e) => setFilterLocation(e.target.value)}
-            className="text-sm border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="text-xs lg:text-sm border border-gray-300 rounded-lg px-2 lg:px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">Alle Locaties</option>
             <option value="Nederland">Nederland</option>
@@ -207,7 +207,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       </div>
 
       {/* Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
         <StatsCard
           title="Gemiddelde Ranking"
           value={rankingStats.averageRank > 0 ? rankingStats.averageRank : '-'}
@@ -257,16 +257,16 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         </div>
 
         {/* Distribution Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4">
           {distributionData.map((segment, index) => {
             return (
-              <div key={index} className="bg-white rounded-lg border border-gray-200 p-4 h-full flex flex-col">
+              <div key={index} className="bg-white rounded-lg border border-gray-200 p-3 lg:p-4 h-full flex flex-col">
                 <div className="mb-3">
-                  <span className="text-sm font-medium text-gray-600">{segment.label}</span>
+                  <span className="text-xs lg:text-sm font-medium text-gray-600">{segment.label}</span>
                 </div>
                 <div className="flex items-baseline gap-1 mt-auto">
-                  <span className="text-xl font-bold text-gray-900">{segment.count}</span>
-                  <span className="text-sm text-gray-500">({segment.percentage}%)</span>
+                  <span className="text-lg lg:text-xl font-bold text-gray-900">{segment.count}</span>
+                  <span className="text-xs lg:text-sm text-gray-500">({segment.percentage}%)</span>
                 </div>
               </div>
             );
@@ -275,7 +275,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       </div>
 
       {/* Top Performers and Biggest Movers */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* Top Performers */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center gap-2 mb-6">
@@ -284,18 +284,18 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
           
           <div className="space-y-3">
             {topPerformers.map((keyword, index) => (
-              <div key={keyword.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+              <div key={keyword.id} className="flex items-center justify-between p-3 lg:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold text-gray-700">
+                  <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs lg:text-sm font-bold text-gray-700">
                     {index + 1}
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">{keyword.keyword}</div>
-                    <div className="text-sm text-gray-500">{keyword.searchVolume.toLocaleString()} zoekvolume</div>
+                    <div className="text-sm lg:text-base font-medium text-gray-900">{keyword.keyword}</div>
+                    <div className="text-xs lg:text-sm text-gray-500">{keyword.searchVolume.toLocaleString()} zoekvolume</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xl font-bold text-gray-900">
+                  <div className="text-lg lg:text-xl font-bold text-gray-900">
                     #{keyword.currentRank}
                   </div>
                 </div>
@@ -312,22 +312,22 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
           
           <div className="space-y-3">
             {biggestMovers.map((keyword) => (
-              <div key={keyword.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+              <div key={keyword.id} className="flex items-center justify-between p-3 lg:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-full bg-gray-200">
-                    <span className="text-sm font-medium text-gray-700">
+                  <div className="p-1 lg:p-2 rounded-full bg-gray-200">
+                    <span className="text-xs lg:text-sm font-medium text-gray-700">
                       {keyword.change > 0 ? '↑' : keyword.change < 0 ? '↓' : '→'}
                     </span>
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">{keyword.keyword}</div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm lg:text-base font-medium text-gray-900">{keyword.keyword}</div>
+                    <div className="text-xs lg:text-sm text-gray-500">
                       {keyword.previousRank} → {keyword.currentRank}
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-gray-900">
+                  <div className="text-base lg:text-lg font-bold text-gray-900">
                     {keyword.change > 0 ? '+' : ''}{keyword.change}
                   </div>
                 </div>

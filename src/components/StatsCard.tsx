@@ -21,9 +21,9 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   subtitle 
 }) => {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 h-full flex flex-col">
+    <div className="bg-white rounded-lg border border-gray-200 p-3 lg:p-6 h-full flex flex-col">
       <div className="flex items-center justify-between mb-3">
-        <p className="text-sm font-medium text-gray-600">{title}</p>
+        <p className="text-xs lg:text-sm font-medium text-gray-600">{title}</p>
         {change && (
           <span className={`text-xs font-medium ${
             change.type === 'positive' 
@@ -39,12 +39,12 @@ export const StatsCard: React.FC<StatsCardProps> = ({
       </div>
       
       <div className="mb-2">
-        <h3 className="text-2xl font-bold text-gray-900">{value}</h3>
+        <h3 className="text-xl lg:text-2xl font-bold text-gray-900">{value}</h3>
       </div>
       
       <div className="mt-auto">
         {subtitle && (
-          <p className="text-sm text-gray-500">{subtitle}</p>
+          <p className="text-xs lg:text-sm text-gray-500">{subtitle}</p>
         )}
         
         {change?.period && (

@@ -94,13 +94,13 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-900">Keywords Performance</h2>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 lg:gap-3">
             <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-gray-400" />
+              <Filter className="h-4 w-4 text-gray-400 hidden lg:block" />
               <select
                 value={filterIntent}
                 onChange={(e) => setFilterIntent(e.target.value)}
-                className="text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="text-xs lg:text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">Alle Intenties</option>
                 <option value="Informatief">Informatief</option>
@@ -113,7 +113,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
             <select
               value={filterDevice}
               onChange={(e) => setFilterDevice(e.target.value)}
-              className="text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-xs lg:text-sm border border-gray-300 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">Alle Apparaten</option>
               <option value="Desktop">Desktop</option>
@@ -123,15 +123,15 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
         </div>
       </div>
       
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto -mx-4 lg:mx-0">
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Zoekwoord
               </th>
               <th 
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('rank')}
               >
                 <div className="flex items-center gap-1">
@@ -143,11 +143,11 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                   )}
                 </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
                 Verandering
               </th>
               <th 
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 hidden lg:table-cell"
                 onClick={() => handleSort('visibility')}
               >
                 <div className="flex items-center gap-1">
@@ -160,7 +160,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                 </div>
               </th>
               <th 
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('volume')}
               >
                 <div className="flex items-center gap-1">
@@ -173,7 +173,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                 </div>
               </th>
               <th 
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 hidden lg:table-cell"
                 onClick={() => handleSort('difficulty')}
               >
                 <div className="flex items-center gap-1">
@@ -185,10 +185,10 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                   )}
                 </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
                 Intentie
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
                 URL
               </th>
             </tr>
@@ -204,12 +204,12 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                   className="hover:bg-gray-50 cursor-pointer transition-colors duration-150"
                   onClick={() => onEditKeyword(keyword)}
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-3 lg:px-6 py-4">
                     <div className="flex flex-col">
-                      <div className="text-sm font-medium text-gray-900 mb-1">
+                      <div className="text-xs lg:text-sm font-medium text-gray-900 mb-1">
                         {keyword.keyword}
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 hidden lg:flex">
                         {keyword.tags.map((tag, index) => (
                           <span
                             key={index}
@@ -220,17 +220,20 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                           </span>
                         ))}
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-gray-500 mt-1 lg:hidden">
+                        Vol: {keyword.searchVolume.toLocaleString()}
+                      </div>
+                      <div className="text-xs text-gray-500 mt-1 hidden lg:block">
                         {keyword.device} • {keyword.location}
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 lg:px-6 py-4 whitespace-nowrap">
                     <span className={`text-lg font-medium ${getRankColor(keyword.currentRank)}`}>
                       {keyword.currentRank || '-'}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 lg:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                     <div className="flex items-center gap-1">
                       {rankChange.type === 'positive' && (
                         <>
@@ -252,7 +255,7 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 lg:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                     <div className="flex items-center gap-2">
                       <Eye className="h-4 w-4 text-gray-400" />
                       <span className="text-sm font-medium text-gray-900">
@@ -260,20 +263,20 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-3 lg:px-6 py-4 whitespace-nowrap text-xs lg:text-sm text-gray-900">
                     {keyword.searchVolume.toLocaleString()}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 lg:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getDifficultyColor(keyword.difficulty)}`}>
                       {keyword.difficulty}%
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 lg:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getIntentColor(keyword.intent)}`}>
                       {keyword.intent}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 lg:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-gray-600 truncate max-w-[200px]">
                         {keyword.url}
