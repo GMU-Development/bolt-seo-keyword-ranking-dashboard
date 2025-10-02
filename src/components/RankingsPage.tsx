@@ -28,7 +28,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
   const [filterLocation, setFilterLocation] = useState('all');
 
   const rankingStats = useMemo(() => {
-    const rankedKeywords = keywords.filter(k => k.currentRank);
+    const rankedKeywords = keywords.filter(k => k.currentRank && k.currentRank > 0);
     
     const topThree = keywords.filter(k => k.currentRank && k.currentRank <= 3).length;
     const fourToTen = keywords.filter(k => k.currentRank && k.currentRank >= 4 && k.currentRank <= 10).length;
@@ -53,10 +53,10 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       ? rankedKeywords.reduce((sum, k) => sum + (k.currentRank || 0), 0) / rankedKeywords.length
       : 0;
 
-    const totalVisibility = keywords.reduce((sum, k) => {
+    const averageVisibility = keywords.length > 0 ? keywords.reduce((sum, k) => {
       const latestVisibility = k.history[k.history.length - 1]?.visibility || 0;
       return sum + latestVisibility;
-    }, 0);
+    }, 0) / keywords.length : 0;
 
     return {
       topThree,
@@ -69,7 +69,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       declining,
       stable,
       averageRank: Math.round(averageRank),
-      totalVisibility: Math.round(totalVisibility / keywords.length)
+      averageVisibility: Math.round(averageVisibility)
     };
   }, [keywords]);
 
@@ -80,12 +80,12 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
   });
 
   const getRankingDistributionData = () => {
-    const total = keywords.length;
+    const total = keywords.filter(k => k.currentRank || k.currentRank === null).length;
     return [
       {
         label: 'Top 3',
         count: rankingStats.topThree,
-        percentage: total > 0 ? (rankingStats.topThree / total) * 100 : 0,
+        percentage: total > 0 ? Math.round((rankingStats.topThree / total) * 100) : 0,
         color: 'bg-green-500',
         bgColor: 'bg-green-50',
         textColor: 'text-green-700',
@@ -94,7 +94,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       {
         label: 'Positie 4-10',
         count: rankingStats.fourToTen,
-        percentage: total > 0 ? (rankingStats.fourToTen / total) * 100 : 0,
+        percentage: total > 0 ? Math.round((rankingStats.fourToTen / total) * 100) : 0,
         color: 'bg-blue-500',
         bgColor: 'bg-blue-50',
         textColor: 'text-blue-700',
@@ -103,7 +103,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       {
         label: 'Positie 11-20',
         count: rankingStats.elevenToTwenty,
-        percentage: total > 0 ? (rankingStats.elevenToTwenty / total) * 100 : 0,
+        percentage: total > 0 ? Math.round((rankingStats.elevenToTwenty / total) * 100) : 0,
         color: 'bg-amber-500',
         bgColor: 'bg-amber-50',
         textColor: 'text-amber-700',
@@ -112,7 +112,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       {
         label: 'Positie 21-50',
         count: rankingStats.twentyOneToFifty,
-        percentage: total > 0 ? (rankingStats.twentyOneToFifty / total) * 100 : 0,
+        percentage: total > 0 ? Math.round((rankingStats.twentyOneToFifty / total) * 100) : 0,
         color: 'bg-orange-500',
         bgColor: 'bg-orange-50',
         textColor: 'text-orange-700',
@@ -121,7 +121,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       {
         label: 'Positie 51-100',
         count: rankingStats.fiftyOneToHundred,
-        percentage: total > 0 ? (rankingStats.fiftyOneToHundred / total) * 100 : 0,
+        percentage: total > 0 ? Math.round((rankingStats.fiftyOneToHundred / total) * 100) : 0,
         color: 'bg-red-500',
         bgColor: 'bg-red-50',
         textColor: 'text-red-700',
@@ -130,7 +130,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       {
         label: 'Niet Gerangschikt',
         count: rankingStats.notRanking,
-        percentage: total > 0 ? (rankingStats.notRanking / total) * 100 : 0,
+        percentage: total > 0 ? Math.round((rankingStats.notRanking / total) * 100) : 0,
         color: 'bg-gray-400',
         bgColor: 'bg-gray-50',
         textColor: 'text-gray-700',
@@ -151,9 +151,10 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
       .filter(k => k.currentRank && k.previousRank)
       .map(k => ({
         ...k,
-        change: (k.previousRank || 0) - (k.currentRank || 0)
+        change: Math.abs((k.previousRank || 0) - (k.currentRank || 0)) > 0 ? (k.previousRank || 0) - (k.currentRank || 0) : 0
       }))
       .sort((a, b) => Math.abs(b.change) - Math.abs(a.change))
+      .filter(k => k.change !== 0)
       .slice(0, 10);
   };
 
@@ -232,7 +233,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
         />
         <StatsCard
           title="Totale Zichtbaarheid"
-          value={`${rankingStats.totalVisibility}%`}
+          value={`${rankingStats.averageVisibility}%`}
           icon={Eye}
           color="purple"
           subtitle="Gemiddelde zichtbaarheid"
@@ -269,7 +270,7 @@ export const RankingsPage: React.FC<RankingsPageProps> = ({ keywords }) => {
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-bold text-gray-900">{segment.count}</span>
-                  <span className="text-sm text-gray-500">({segment.percentage.toFixed(1)}%)</span>
+                  <span className="text-sm text-gray-500">({segment.percentage}%)</span>
                 </div>
               </div>
             );

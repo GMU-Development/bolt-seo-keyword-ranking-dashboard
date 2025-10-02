@@ -38,10 +38,10 @@ export const KeywordTable: React.FC<KeywordTableProps> = ({ keywords, onEditKeyw
 
   const getIntentColor = (intent: string) => {
     switch (intent) {
-      case 'Informational': return 'bg-blue-100 text-blue-800';
-      case 'Commercial': return 'bg-purple-100 text-purple-800';
-      case 'Transactional': return 'bg-green-100 text-green-800';
-      case 'Navigational': return 'bg-gray-100 text-gray-800';
+      case 'Informatief': return 'bg-blue-100 text-blue-800';
+      case 'Commercieel': return 'bg-purple-100 text-purple-800';
+      case 'Transactioneel': return 'bg-green-100 text-green-800';
+      case 'Navigatie': return 'bg-gray-100 text-gray-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };

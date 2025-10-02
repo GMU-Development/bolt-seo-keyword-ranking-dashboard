@@ -391,7 +391,7 @@ function App() {
         );
 
       case 'rankings':
-        return <RankingsPage keywords={keywords} />;
+        return <RankingsPage keywords={filteredKeywords} />;
 
       default:
         return (
